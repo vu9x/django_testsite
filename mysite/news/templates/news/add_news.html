@@ -22,7 +22,7 @@
     <div class="form-group">
         <label for="{{ form.title.id_for_label }}" class="form-label">Название: </label>
         {{ form.title }}
-        <div class="valid-feedback">
+        <div class="invalid-feedback">
             {{ form.title.errors }}
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="form-group">
         <label for="{{ form.content.id_for_label }}" class="form-label">Текст: </label>
         {{ form.content }}
-        <div class="valid-feedback">
+        <div class="invalid-feedback">
             {{ form.content.errors }}
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="form-group">
         <label for="{{ form.is_published.id_for_label }}" class="form-label">Опубликовано?</label>
         {{ form.is_published }}
-        <div class="valid-feedback">
+        <div class="invalid-feedback">
             {{ form.is_published.errors }}
         </div>
     </div>
@@ -46,7 +46,7 @@
     <div class="form-group">
         <label for="{{ form.category.id_for_label }}" class="form-label">Категория:</label>
         {{ form.category }}
-        <div class="valid-feedback">
+        <div class="invalid-feedback">
             {{ form.category.errors }}
         </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-group">
         {{ field.label_tag }}
         {{ field }}
-        <div class="valid-feedback">
+        <div class="invalid-feedback">
             {{ field.errors }}
         </div>
     </div>

@@ -5,12 +5,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from .utils import MyMixin
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
 # Create your views here.
+
+# Google Client ID: 369290147894-7rlj1vsjrvktg60vprb1he6ikaoo8qa5.apps.googleusercontent.com
+# Google Client Secret: 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
 
 def register(request):
     if request.method == 'POST':
@@ -44,11 +48,27 @@ def user_logout(request):
     return redirect('login')
 
 def test(request):
-    objects = ['john1', 'paul2', 'george3', 'ringo4', 'ringo5', 'ringo6','ringo7']
-    paginator = Paginator(objects, 2)
-    page_num = request.GET.get('page', 1)
-    page_objects = paginator.get_page(page_num)
-    return render(request, 'news/test.html', {'page_obj': page_objects})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'],
+                      form.cleaned_data['content'],
+                      'smtp.ntv.django.lesson@gmail.com',
+                             ['nguyentuanvu9x@gmail.com'],
+                             fail_silently=False,
+                             auth_user='smtp.ntv.django.lesson@gmail.com',
+                             auth_password='ylecaisragyvzyka')
+            if mail:
+                messages.success(request, 'Письмо отправлено!')
+                return redirect('test')
+            else:
+                messages.error(request, 'Ошибка отправки')
+            return redirect('test')
+        else:
+            messages.error(request, 'Ошибка формы')
+    else:
+        form = ContactForm()
+    return render(request, 'news/test.html', {'form': form})
 
 class HomeNews(MyMixin, ListView):
     model = News

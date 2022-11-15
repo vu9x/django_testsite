@@ -143,3 +143,11 @@ EMAIL_HOST_USER = 'smtp.ntv.django.lesson@gmail.com'
 EMAIL_HOST_PASSWORD = 'Aasfl2123!'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
+    }
+}
